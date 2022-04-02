@@ -2,31 +2,28 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Departments', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
       department: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        primaryKey: true
       },
       allocated_budget: {
-        type: Sequelize.NUMBER
+        type: Sequelize.INTEGER
       },
       used_budget: {
-        type: Sequelize.NUMBER
+        type: Sequelize.INTEGER
       },
       department_name: {
         type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW
       }
     });
   },

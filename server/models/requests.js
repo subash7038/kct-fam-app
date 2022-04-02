@@ -1,6 +1,6 @@
 'use strict';
 const {
-  Model
+  Model,Sequelize
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class requests extends Model {
@@ -14,17 +14,30 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   requests.init({
-    request_id: DataTypes.STRING,
+    request_id: {
+      primaryKey: true,
+      type:DataTypes.INTEGER,
+    },
     emp_id: DataTypes.STRING,
-    user_level: DataTypes.NUMBER,
+    user_level: DataTypes.INTEGER,
     event_type: DataTypes.STRING,
     event_info: DataTypes.JSON,
-    approval_status: DataTypes.NUMBER,
+    approval_status: DataTypes.INTEGER,
     budget_ref_no: DataTypes.STRING,
-    aad_no: DataTypes.STRING
+    aad_no: DataTypes.STRING,
+    createdAt: {
+      defaultValue: Sequelize.NOW,
+      type:DataTypes.DATE
+
+    },
+    updatedAt:  {
+      defaultValue: Sequelize.NOW,
+      type:DataTypes.DATE
+
+    }
   }, {
     sequelize,
-    modelName: 'requests',
+    modelName: 'Request',
   });
   return requests;
 };

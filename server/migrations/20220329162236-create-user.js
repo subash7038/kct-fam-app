@@ -1,15 +1,11 @@
 'use strict';
+const bcrypt = require("bcrypt");
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Users', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
       emp_id: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        primaryKey: true,
       },
       name: {
         type: Sequelize.STRING
@@ -18,7 +14,11 @@ module.exports = {
         type: Sequelize.STRING
       },
       department: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        references: {
+          model: 'Departments',
+          key: 'department',
+       }
       },
       designation: {
         type: Sequelize.STRING
@@ -28,12 +28,17 @@ module.exports = {
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW
       }
+    })
+    .then(() => {
+      //need to insert default admin here
     });
   },
   async down(queryInterface, Sequelize) {
